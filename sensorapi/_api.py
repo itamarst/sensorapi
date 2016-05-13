@@ -6,7 +6,8 @@ Potential improvements:
   directly to response as it is generated.
 - Don't do new DB connection per request.
 """
-
+from logging import basicConfig, INFO
+from sys import stdout
 from json import dumps
 
 from flask import Flask, make_response
@@ -49,4 +50,5 @@ def main():
     """
     Run the server.
     """
-    app.run()
+    basicConfig(stream=stdout, level=INFO)
+    app.run(host="")
