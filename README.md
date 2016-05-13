@@ -3,6 +3,16 @@
 Read data from a pubnub data source, store it in PostgreSQL, expose it via a REST API.
 
 
+## Demo
+
+Assuming you have Docker and Docker Compose installed, run the following:
+
+	$ make demo
+
+This will start 3 Docker processes: PostgreSQL, sensor retrieval and a
+REST API on port 5000. It will wait a few seconds to gather data from
+PubNub, and then send a query to the REST API.
+
 ## Architecture
 
 There are multiple of application processes:
