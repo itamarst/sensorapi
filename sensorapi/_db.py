@@ -4,7 +4,7 @@ Database schema for storing sensor data.
 
 from sqlalchemy import (
     MetaData, Table, Column, String, Float, create_engine, select,
-    where, and_)
+    and_)
 
 metadata = MetaData()
 
@@ -19,16 +19,24 @@ sensordata = Table("sensordata", metadata,
                    Column("ambient_temperature", Float))
 
 
+__all__ = ["docker_engine", "insert", "retrieve_by_timestamp",
+           "retrieve_sensor"]
+
+
 def docker_engine():
     """
     Create a SQLAlchemy Engine pointed at a PostgreSQL server run by Docker.
 
     Specifically, the assumption is that the hostname is
     "sensordata_db", and username/password/dbname are "postgres".
+
+    Tables will be created if necessary.
     """
-    return create_engine(
+    engine = create_engine(
         "postgresql+psycopg2://{}:{}@{}/{}".format(
             "postgres", "postgres", "sensordata_db", "postgres"))
+    metadata.create_all(engine)
+    return engine
 
 
 def insert(engine, **params):
@@ -44,9 +52,9 @@ def retrieve_by_timestamp(engine, start, end):
     Return full records for timestamps (seconds since epoch UTC)
     between start and end.
     """
-    query = select([sensordata],
-                   where(and_(sensordata.c.timestamp >= start,
-                              sensordata.c.timestamp < end)))
+    query = select([sensordata]).where(
+        and_(sensordata.c.timestamp >= start,
+             sensordata.c.timestamp < end)).order_by(sensordata.c.timestamp)
     return engine.execute(query).fetchall()
 
 
@@ -58,4 +66,5 @@ def retrieve_sensor(engine, sensor_name):
                            "photosensor"):
         raise RuntimeError("Unknown sensor name.")
     query = select([getattr(sensordata.c, sensor_name), sensordata.c.timestamp])
+    query = query.order_by(sensordata.c.timestamp)
     return engine.execute(query).fetchall()
