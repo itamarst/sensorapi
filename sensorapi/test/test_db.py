@@ -11,37 +11,8 @@ Potential improvements:
 
 from unittest import TestCase
 
-from .._db import (
-    docker_engine, insert, retrieve_by_timestamp, retrieve_sensor,
-    sensordata)
-
-
-ENTRIES = [
-    {
-        "photosensor": 744.5,
-        "humidity": 74.0,
-        "sensor_uuid": "probe-1",
-        "timestamp": 101,
-        "ambient_temperature": 9.25,
-        "radiation_level": 201
-    },
-    {
-        "photosensor": 745.5,
-        "humidity": 75.0,
-        "sensor_uuid": "probe-2",
-        "timestamp": 102,
-        "ambient_temperature": 10.25,
-        "radiation_level": 202
-    },
-    {
-        "photosensor": 746.5,
-        "humidity": 76.0,
-        "sensor_uuid": "probe-3",
-        "timestamp": 103,
-        "ambient_temperature": 11.25,
-        "radiation_level": 203
-    }
-]
+from .common import setup, ENTRIES
+from .._db import retrieve_by_timestamp, retrieve_sensor
 
 
 class DatabaseTests(TestCase):
@@ -49,12 +20,7 @@ class DatabaseTests(TestCase):
     Tests for direct database interaction.
     """
     def setUp(self):
-        self.engine = docker_engine()
-        # Cleanup any existing data:
-        self.engine.execute(sensordata.delete())
-        # Insert test data:
-        for entry in ENTRIES:
-            insert(self.engine, **entry)
+        self.engine = setup()
 
     def test_retrieve_by_timestamp(self):
         """
@@ -67,7 +33,7 @@ class DatabaseTests(TestCase):
 
     def test_retrieve_sensor(self):
         """
-        ``retrieve_sensor`` returns a particular columns' values.
+        ``retrieve_sensor`` returns a particular column's values.
         """
         for column in ["photosensor", "humidity", "ambient_temperature",
                        "radiation_level"]:
@@ -75,4 +41,3 @@ class DatabaseTests(TestCase):
             self.assertEqual(map(dict, retrieved),
                              [{"timestamp": e["timestamp"], column: e[column]}
                               for e in ENTRIES])
-

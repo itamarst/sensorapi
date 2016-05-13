@@ -1,5 +1,8 @@
 """
-Database schema for storing sensor data.
+Database schema and API for storing sensor data.
+
+Potential improvements:
+- All data is loaded into memory; better to provide streaming API.
 """
 
 from sqlalchemy import (
