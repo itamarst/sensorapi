@@ -32,14 +32,16 @@ ENTRIES = [
     }
 ]
 
-def setup():
+def setup(insert_data=True):
     """
-    Insert entries into the database, and return an SQLAlchemy engine.
+    Clean database, insert entries into the database if requested, and
+    return an SQLAlchemy engine.
     """
     engine = docker_engine()
     # Cleanup any existing data:
     engine.execute(sensordata.delete())
-    # Insert test data:
-    for entry in ENTRIES:
-        insert(engine, **entry)
+    if insert_data:
+        # Insert test data:
+        for entry in ENTRIES:
+            insert(engine, **entry)
     return engine
