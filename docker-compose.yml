@@ -1,0 +1,8 @@
+version: '2'
+services:
+  sensordata_db:
+    image: postgres
+  api:
+    build: .
+    depends_on:
+      - sensordata_db
