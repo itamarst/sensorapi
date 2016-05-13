@@ -3,11 +3,15 @@ Database schema and API for storing sensor data.
 
 Potential improvements:
 - All data is loaded into memory; better to provide streaming API.
+- Retrying database connection forever is a problem; need timeouts.
 """
+
+from time import sleep
 
 from sqlalchemy import (
     MetaData, Table, Column, String, Float, create_engine, select,
     and_)
+from sqlalchemy.exc import OperationalError
 
 metadata = MetaData()
 
@@ -38,7 +42,14 @@ def docker_engine():
     engine = create_engine(
         "postgresql+psycopg2://{}:{}@{}/{}".format(
             "postgres", "postgres", "sensordata_db", "postgres"))
-    metadata.create_all(engine)
+    # Database may be starting up or temporarily unavailable, so retry:
+    while True:
+        try:
+            metadata.create_all(engine)
+        except OperationalError:
+            sleep(0.1)
+        else:
+            break
     return engine
 
 

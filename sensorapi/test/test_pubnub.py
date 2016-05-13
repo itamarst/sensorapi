@@ -31,7 +31,7 @@ class ReceiverTests(TestCase):
             } for i in range(10)]
         receiver = Receiver(self.engine, 3)
         for m in messages:
-            receiver(m)
+            receiver(m, "thechannel")
         self.assertEqual(
             [d["radiation_level"] for d
              in retrieve_sensor(self.engine, "radiation_level")],

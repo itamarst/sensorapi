@@ -43,3 +43,10 @@ def by_sensor_name(sensor_name):
     """
     engine = docker_engine()
     return _to_json(retrieve_sensor(engine, sensor_name))
+
+
+def main():
+    """
+    Run the server.
+    """
+    app.run()

@@ -25,13 +25,14 @@ class Receiver(object):
         self._sample = sample
         self._engine = engine
 
-    def __call__(self, msg):
+    def __call__(self, msg, _):
         if self._received % self._sample == 0:
             msg = msg.copy()  # don't mutate inputs
             for column in [
                     "photosensor", "humidity", "ambient_temperature",
                     "radiation_level", "timestamp"]:
                 msg[column] = float(msg[column])
+            print("Inserting: {}".format(msg["timestamp"]))
             insert(self._engine, **msg)
         self._received += 1
         return True
@@ -44,5 +45,5 @@ def main():
     """
     Pubnub(publish_key='demo',
            subscribe_key='sub-c-5f1b7c8e-fbee-11e3-aa40-02ee2ddab7fe'
-    ).subscribe({'channel' : 'pubnub-sensor-network',
-                 'callback' : Receiver(docker_engine(), 10)})
+    ).subscribe('pubnub-sensor-network',
+                callback=Receiver(docker_engine(), 10))
