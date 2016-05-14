@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: subscriber
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: subscriber
+    spec:
+      containers:
+      - name: subscriber
+        # Kubernetes currently doesn't support make this pluggable, so
+        # I have to hardcode my own project name.  Eventually Kubernetes
+        # will fix that, and in meanwhile one could use code to
+        # generate customized YAML files.
+        # image: gcr.io/<PROJECT_NAME>/sensorapi
+        image: gcr.io/cellular-motif-131117/sensorapi
