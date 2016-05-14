@@ -23,7 +23,7 @@ push-image:
 	gcloud docker push gcr.io/$(PROJECT_NAME)/sensorapi:1.0
 
 provision-cluster:
-	gcloud container clusters create --num-nodes=1 test-cluster
+	gcloud container clusters create --num-nodes=2 test-cluster
 	gcloud container clusters get-credentials test-cluster
 
 destroy-cluster:
