@@ -15,5 +15,6 @@ spec:
         # I have to hardcode my own project name.  Eventually Kubernetes
         # will fix that, and in meanwhile one could use code to
         # generate customized YAML files.
-        # image: gcr.io/<PROJECT_NAME>/sensorapi
-        image: gcr.io/cellular-motif-131117/sensorapi
+        # image: gcr.io/<PROJECT_NAME>/sensorapi:1.0
+        image: gcr.io/cellular-motif-131117/sensorapi:1.0
+        command: ["sensor-subscriber"]

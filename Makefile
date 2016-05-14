@@ -37,4 +37,4 @@ provision-containers:
 	kubectl create -f kubernetes/api-service.yml
 
 destroy-containers:
-	kubectl destroy -f kubernetes/
+	kubectl delete -f kubernetes/

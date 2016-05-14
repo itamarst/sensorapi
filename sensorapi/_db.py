@@ -35,13 +35,13 @@ def docker_engine():
     Create a SQLAlchemy Engine pointed at a PostgreSQL server run by Docker.
 
     Specifically, the assumption is that the hostname is
-    "sensordata_db", and username/password/dbname are "postgres".
+    "sensordb", and username/password/dbname are "postgres".
 
     Tables will be created if necessary.
     """
     engine = create_engine(
         "postgresql+psycopg2://{}:{}@{}/{}".format(
-            "postgres", "postgres", "sensordata_db", "postgres"))
+            "postgres", "postgres", "sensordb", "postgres"))
     # Database may be starting up or temporarily unavailable, so retry:
     while True:
         try:

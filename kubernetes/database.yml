@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: sensordata_db
+  name: sensordb
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        run: sensordata_db
+        run: sensordb
     spec:
       containers:
-      - name: sensordata_db
+      - name: sensordb
         image: postgres
         ports:
         - containerPort: 5432

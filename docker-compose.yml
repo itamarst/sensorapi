@@ -1,6 +1,6 @@
 version: '2'
 services:
-  sensordata_db:
+  sensordb:
     image: postgres
   api:
     build: .
@@ -8,9 +8,9 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - sensordata_db
+      - sensordb
   subscriber:
     build: .
     command: sensor-subscribe
     depends_on:
-      - sensordata_db
+      - sensordb

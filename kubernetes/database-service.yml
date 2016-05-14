@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sensordata_db
+  name: sensordb
   labels:
-    run: sensordata_db
+    run: sensordb
 spec:
   ports:
   - port: 5432
     protocol: TCP
   selector:
-    run: sensordata_db
+    run: sensordb
