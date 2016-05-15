@@ -16,7 +16,9 @@ demo: build-compose
 
 
 # Provision and run on production, i.e. Google Container Engine (Kubernetes)
-# Requires PROJECT_NAME environment variable to be set.
+
+# Requires PROJECT_NAME environment variable to be set, it should
+# match the Google Cloud project id.
 push-image:
 	test -n "$(PROJECT_NAME)"  # Ensure $$PROJECT_NAME is set
 	docker build -t gcr.io/$(PROJECT_NAME)/sensorapi:1.0 .
