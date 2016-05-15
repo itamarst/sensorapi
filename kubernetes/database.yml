@@ -14,3 +14,18 @@ spec:
         image: postgres
         ports:
         - containerPort: 5432
+        volumeMounts:
+        - name: sensordb-persistent
+          mountPath: /var/lib/postgresql/data
+        env:
+          # If volume is root of filesystem lost+found confuses the
+          # container, so suggestion is to use subdirectory; see
+          # https://hub.docker.com/_/postgres/.
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
+      volumes:
+        - name: sensordb-persistent
+          gcePersistentDisk:
+            # This disk must already exist.
+            pdName: sensordb
+            fsType: ext4

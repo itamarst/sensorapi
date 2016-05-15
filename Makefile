@@ -25,9 +25,11 @@ push-image:
 provision-cluster:
 	gcloud container clusters create --num-nodes=2 test-cluster
 	gcloud container clusters get-credentials test-cluster
+	gcloud compute disks create --size 50GB sensordb
 
 destroy-cluster:
 	gcloud container clusters delete test-cluster
+	gcloud compuete disks delete sensordb
 
 provision-containers:
 	kubectl create -f kubernetes/database.yml
