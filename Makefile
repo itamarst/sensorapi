@@ -1,4 +1,4 @@
-.PHONY: build-compose test demo push-image
+.PHONY: build-compose test demo push-image provision-cluster destroy-cluster provision-containers destroy-containers
 
 
 # Local testing and demonstration:
