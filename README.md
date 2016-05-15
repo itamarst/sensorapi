@@ -75,5 +75,6 @@ To delete the virtual machines and persistent disk (WARNING: data loss!):
 
 * Add password to PostgreSQL for security.
 * Separate Docker images for each server, and perhaps separate Python packages etc. if they grow larger.
+* Cloud-managed database, rather than running our own.
 
 See the source code for other potential improvements.
