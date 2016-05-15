@@ -3,7 +3,8 @@ Database schema and API for storing sensor data.
 
 Potential improvements:
 - All data is loaded into memory; better to provide streaming API.
-- Retrying database connection forever is a problem; need timeouts.
+- Retrying database connection forever is a problem; need timeouts,
+  logging, differentiation between different kinds of errors, etc..
 """
 
 from time import sleep
