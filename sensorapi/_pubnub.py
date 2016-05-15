@@ -3,8 +3,10 @@ Retrieve records from PubNub and insert into the database.
 
 Potential improvements:
 
-- Better downsampling, e.g. mean of values, time-bases sampling,
+- Better downsampling, e.g. time-based sampling using mean of values,
   etc. (need to understand implication of sensor_uuid first).
+- Error handling if PubNub communication has issues.
+- Don't hardcode subscription, have it be parameter to the application.
 """
 from sys import stdout
 from logging import basicConfig, info
