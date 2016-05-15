@@ -5,6 +5,7 @@ Potential improvements:
 - All of the result is serialized into memory; better to write JSON
   directly to response as it is generated.
 - Don't do new DB connection per request.
+- API design could be nicer, e.g. parameters in incoming JSON.
 """
 from logging import basicConfig, INFO
 from sys import stdout
