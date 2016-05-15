@@ -31,7 +31,7 @@ provision-cluster:
 
 destroy-cluster:
 	gcloud container clusters delete test-cluster
-	gcloud compuete disks delete sensordb
+	gcloud compute disks delete sensordb
 
 provision-containers:
 	kubectl create -f kubernetes/database.yml
