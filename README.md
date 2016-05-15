@@ -11,7 +11,7 @@ There are two different application processes:
 2. A server exposes a REST API and reads data from the database.
    Since these are read-only stateless processes multiple servers can be run if they become a bottleneck.
 
-Each application initializes the databases if it's not already initialized.
+Each application initializes the database if it's not already initialized.
 
 ## Packaging
 
@@ -74,6 +74,6 @@ To delete the virtual machines and persistent disk (WARNING: data loss!):
 ## Potential improvements
 
 * Add password to PostgreSQL for security.
-* Separate Docker images for each server, and perhaps separate packages/requirements/etc. if they grow larger.
+* Separate Docker images for each server, and perhaps separate Python packages etc. if they grow larger.
 
 See the source code for other potential improvements.
